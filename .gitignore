@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Generated on every build by scripts/generate-sitemap.ts (uses VITE_SITE_URL)
+public/sitemap.xml
+public/robots.txt

@@ -17,4 +17,3 @@ export {
   searchPath,
   shopsForProductPath,
 } from './routes'
-export { slugify } from './slugify'

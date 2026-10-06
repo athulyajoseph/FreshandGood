@@ -6,7 +6,7 @@ import { NearbyShops } from '@/components/home/NearbyShops'
 import { Testimonials } from '@/components/home/Testimonials'
 import { WhyChooseUs } from '@/components/home/WhyChooseUs'
 import { ProductGrid } from '@/components/product'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { organizationLd, Seo } from '@/components/seo'
 import { ButtonLink, Container, SectionHeading } from '@/components/ui'
 import { useAsync } from '@/hooks'
 import { categoryService, productService } from '@/services'
@@ -33,7 +33,10 @@ export default function HomePage() {
 
   return (
     <>
-      <PageMeta description="Homemade Kerala snacks, stone-ground masalas, fresh produce and the morning's catch, stocked at partner shops near you across Kochi." />
+      <Seo
+        jsonLd={organizationLd()}
+        description="Homemade Kerala snacks, stone-ground masalas, fresh produce and the morning's catch, stocked at partner shops near you across Kochi."
+      />
 
       <HomeHero />
 

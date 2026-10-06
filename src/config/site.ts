@@ -1,17 +1,18 @@
-const PLACEHOLDER_WHATSAPP = '919800000000'
+import { contentService } from '@/services'
 
+const info = contentService.getSiteInfo()
+
+/**
+ * Site-wide config: business details from src/data/siteConfig.ts, with per-deployment
+ * overrides from environment variables.
+ */
 export const siteConfig = {
-  name: 'Fresh & Good',
-  tagline: 'Kerala groceries from shops near you',
-  description:
-    'Discover fresh Kerala produce, spices, snacks, seafood and breakfast staples, and find a Fresh & Good partner shop near you in Kochi.',
-  url: (import.meta.env.VITE_SITE_URL ?? 'https://freshandgood.example.com').replace(/\/$/, ''),
-  city: 'Kochi',
+  ...info,
+  /** Public site URL without a trailing slash, resolved at build time by vite.config.ts. */
+  url: import.meta.env.VITE_SITE_URL,
   contact: {
-    phone: '+91 484 240 0000',
-    email: 'hello@freshandgood.example.com',
-    address: 'Fresh & Good Foods, MG Road, Ernakulam, Kochi 682035',
-    whatsappNumber: (import.meta.env.VITE_WHATSAPP_NUMBER ?? PLACEHOLDER_WHATSAPP).replace(
+    ...info.contact,
+    whatsappNumber: (import.meta.env.VITE_WHATSAPP_NUMBER ?? info.contact.whatsappNumber).replace(
       /\D/g,
       '',
     ),
@@ -31,4 +32,18 @@ export const navLinks = [
 export function whatsappLink(message?: string): string {
   const base = `https://wa.me/${siteConfig.contact.whatsappNumber}`
   return message ? `${base}?text=${encodeURIComponent(message)}` : base
+}
+
+/** The office address on one line, e.g. "MG Road, Ernakulam, Kochi, Kerala 682035". */
+export function formatAddress(address = siteConfig.contact.address): string {
+  return `${address.street}, ${address.city}, ${address.region} ${address.pincode}`
+}
+
+/** `tel:` link for a display phone number. */
+export const telLink = (phone: string): string => `tel:${phone.replace(/[^\d+]/g, '')}`
+
+/** Contact form settings. The form falls back to email / WhatsApp links when either is unset. */
+export const contactFormConfig = {
+  endpoint: import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() || '',
+  accessKey: import.meta.env.VITE_CONTACT_FORM_KEY?.trim() || '',
 }

@@ -1,11 +1,12 @@
 import { ArrowLeft, Home, MapPin, ShoppingBasket } from 'lucide-react'
 import { useCallback } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { PageMeta } from '@/components/seo/PageMeta'
-import { Button, ButtonLink, Container, Skeleton } from '@/components/ui'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { CategoryLinks } from '@/components/category'
+import { SearchBar } from '@/components/search'
+import { Seo } from '@/components/seo'
+import { Button, ButtonLink, Container } from '@/components/ui'
 import { useAsync } from '@/hooks'
 import { categoryService } from '@/services'
-import { categoryPath } from '@/utils'
 
 function CategorySuggestions() {
   const { data: categories, status } = useAsync(useCallback(() => categoryService.getAll(), []))
@@ -21,27 +22,7 @@ function CategorySuggestions() {
       >
         Or browse a category
       </h2>
-      <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        {status === 'loading' || !categories
-          ? Array.from({ length: 5 }, (_, i) => (
-              <li key={i}>
-                <Skeleton className="h-24 rounded-2xl" />
-              </li>
-            ))
-          : categories.map((category) => (
-              <li key={category.id}>
-                <Link
-                  to={categoryPath(category.slug)}
-                  className="flex h-24 flex-col items-center justify-center gap-1 rounded-2xl border border-stone-200 bg-white px-3 text-center transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
-                >
-                  <span className="text-2xl" aria-hidden="true">
-                    {category.emoji}
-                  </span>
-                  <span className="text-sm font-medium text-stone-800">{category.name}</span>
-                </Link>
-              </li>
-            ))}
-      </ul>
+      <CategoryLinks categories={categories} className="mt-4" />
     </section>
   )
 }
@@ -52,7 +33,7 @@ export default function NotFoundPage() {
 
   return (
     <>
-      <PageMeta
+      <Seo
         title="Page not found"
         description="The page you were looking for doesn't exist or has moved."
         noIndex
@@ -81,21 +62,27 @@ export default function NotFoundPage() {
           <code className="rounded bg-stone-100 px-1.5 py-0.5 text-sm break-all text-stone-800">
             {pathname}
           </code>
-          . It may have moved, or the link might be mistyped.
+          . It may have moved, or the link might be mistyped. Try searching for what you need:
         </p>
 
+        <SearchBar showSubmitButton className="mt-6 w-full max-w-lg text-left" />
+
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <ButtonLink to="/" leftIcon={<Home className="size-4" />}>
+          <ButtonLink to="/" leftIcon={<Home className="size-4" aria-hidden="true" />}>
             Go to home
           </ButtonLink>
           <ButtonLink
             to="/products"
             variant="secondary"
-            leftIcon={<ShoppingBasket className="size-4" />}
+            leftIcon={<ShoppingBasket className="size-4" aria-hidden="true" />}
           >
             Browse products
           </ButtonLink>
-          <ButtonLink to="/shops" variant="outline" leftIcon={<MapPin className="size-4" />}>
+          <ButtonLink
+            to="/shops"
+            variant="outline"
+            leftIcon={<MapPin className="size-4" aria-hidden="true" />}
+          >
             Find a shop
           </ButtonLink>
         </div>
@@ -104,7 +91,7 @@ export default function NotFoundPage() {
           variant="ghost"
           size="sm"
           className="mt-4"
-          leftIcon={<ArrowLeft className="size-4" />}
+          leftIcon={<ArrowLeft className="size-4" aria-hidden="true" />}
           onClick={() => navigate(-1)}
         >
           Go back

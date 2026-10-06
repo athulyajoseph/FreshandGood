@@ -1,6 +1,6 @@
 import { List, Map as MapIcon, Search, Store, X } from 'lucide-react'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { Seo, storesLd } from '@/components/seo'
 import {
   LazyShopMap,
   LocationPrompt,
@@ -44,6 +44,9 @@ export default function ShopsPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [view, setView] = useState<View>('list')
   const mapPanelRef = useRef<HTMLDivElement>(null)
+
+  // Every shop (unfiltered) for the Store structured data.
+  const allShops = useAsync(useCallback(() => shopService.getAll(), []))
 
   const filterOptions = useAsync(
     useCallback(async () => {
@@ -126,9 +129,10 @@ export default function ShopsPage() {
 
   return (
     <>
-      <PageMeta
+      <Seo
         title="Find a Shop"
         description={`Find your nearest ${siteConfig.name} partner shop in ${siteConfig.city}. Search by area or pincode, see opening hours, and get directions on the map.`}
+        jsonLd={allShops.data ? storesLd(allShops.data) : undefined}
       />
       <Container className="py-8 sm:py-12">
         <Breadcrumbs items={[{ label: 'Find a Shop' }]} className="mb-6" />

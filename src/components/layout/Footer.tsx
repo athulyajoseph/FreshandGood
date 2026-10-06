@@ -1,7 +1,8 @@
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui'
-import { siteConfig } from '@/config/site'
+import { formatAddress, siteConfig, telLink, whatsappLink } from '@/config/site'
+import { formatOpeningHours } from '@/utils'
 import { Logo } from './Logo'
 
 const shopLinks = [
@@ -56,13 +57,10 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-brand-100/80">
             <li className="flex gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-              <span>{contact.address}</span>
+              <span>{formatAddress()}</span>
             </li>
             <li>
-              <a
-                href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                className="flex gap-2 hover:text-white"
-              >
+              <a href={telLink(contact.phone)} className="flex gap-2 hover:text-white">
                 <Phone className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                 {contact.phone}
               </a>
@@ -72,6 +70,22 @@ export function Footer() {
                 <Mail className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                 {contact.email}
               </a>
+            </li>
+            <li>
+              <a
+                href={whatsappLink(`Hi ${siteConfig.name}! I have a question.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-2 hover:text-white"
+              >
+                <MessageCircle className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                Chat on WhatsApp
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li className="flex gap-2">
+              <Clock className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+              <span>{formatOpeningHours(contact.hours)}</span>
             </li>
           </ul>
         </div>

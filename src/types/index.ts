@@ -118,3 +118,73 @@ export interface ShopFilters {
   category?: string
   product?: string
 }
+
+export interface PostalAddress {
+  street: string
+  city: string
+  region: string
+  pincode: string
+  /** ISO 3166-1 alpha-2 country code, e.g. "IN". */
+  country: string
+}
+
+/** Business and contact details (src/data/siteConfig.ts). */
+export interface SiteInfo {
+  name: string
+  legalName: string
+  tagline: string
+  description: string
+  city: string
+  foundedYear: number
+  contact: {
+    phone: string
+    email: string
+    /** Digits only, with country code, e.g. "919800000000". */
+    whatsappNumber: string
+    address: PostalAddress
+    coordinates: Coordinates
+    hours: OpeningHours
+  }
+  social: { label: string; url: string }[]
+}
+
+/** Icons available for About page value cards (lucide-react names). */
+export type AboutValueIcon =
+  | 'HandHeart'
+  | 'Sprout'
+  | 'Users'
+  | 'Store'
+  | 'Leaf'
+  | 'Heart'
+  | 'ChefHat'
+  | 'Sparkles'
+  | 'ShieldCheck'
+  | 'Fish'
+
+/** Everything on the About page (src/data/about.ts). */
+export interface AboutContent {
+  hero: { eyebrow: string; title: string; intro: string }
+  story: { title: string; paragraphs: string[] }
+  mission: { title: string; text: string }
+  values: { icon: AboutValueIcon; title: string; description: string }[]
+  howItWorks: { title: string; steps: { title: string; description: string }[] }
+  team: {
+    title: string
+    intro: string
+    /** `photo` is optional: without one, the member's initials are shown. */
+    members: { name: string; role: string; bio: string; photo?: string }[]
+  }
+  cta: { title: string; text: string }
+}
+
+/** A search result with the character ranges that matched, for highlighting. */
+export interface SearchHit<T> {
+  item: T
+  /** Inclusive [start, end] index pairs into the item's name. */
+  nameMatches: [number, number][]
+}
+
+export interface SearchResults {
+  products: SearchHit<Product>[]
+  categories: SearchHit<Category>[]
+}

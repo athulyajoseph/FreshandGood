@@ -2,7 +2,7 @@ import { MapPin, MessageCircle, PackageSearch, Star } from 'lucide-react'
 import { useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ProductGallery, ProductGrid, ProductShopAvailability } from '@/components/product'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { productLd, Seo } from '@/components/seo'
 import {
   Badge,
   Breadcrumbs,
@@ -23,6 +23,10 @@ import { categoryPath, formatPrice, productsWithTagPath } from '@/utils'
 
 const RELATED_LIMIT = 4
 const META_DESCRIPTION_LENGTH = 160
+
+/** Social networks don't render SVG, so placeholder SVG images fall back to the site image. */
+const shareImage = (product: Product): string | undefined =>
+  product.images.find((src) => !src.endsWith('.svg'))
 
 function metaDescription(product: Product): string {
   const text = `${product.name} (${product.unit}) for ${formatPrice(product.price)}. ${product.description}`
@@ -196,13 +200,14 @@ function ProductDetailSkeleton() {
 function ProductNotFound({ slug }: { slug: string }) {
   return (
     <>
-      <PageMeta
+      <Seo
         title="Product not found"
         description="This product doesn't exist or is no longer available."
         noIndex
       />
       <Breadcrumbs
         items={[{ label: 'Products', to: '/products' }, { label: 'Not found' }]}
+        structuredData={false}
         className="mb-6"
       />
       <EmptyState
@@ -245,14 +250,20 @@ export default function ProductDetailPage() {
         <ProductDetailSkeleton />
       ) : status === 'error' ? (
         <>
-          <PageMeta title="Product" />
+          <Seo title="Product" />
           <ErrorState title="Couldn’t load this product" onRetry={retry} />
         </>
       ) : !data ? (
         <ProductNotFound slug={slug} />
       ) : (
         <>
-          <PageMeta title={data.product.name} description={metaDescription(data.product)} />
+          <Seo
+            title={data.product.name}
+            description={metaDescription(data.product)}
+            type="product"
+            image={shareImage(data.product)}
+            jsonLd={productLd(data.product, data.category)}
+          />
           <Breadcrumbs
             items={[
               ...(data.category

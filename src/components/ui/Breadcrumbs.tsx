@@ -1,5 +1,7 @@
 import { ChevronRight, Home } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbLd } from '@/components/seo/structuredData'
 import { cn } from '@/utils'
 
 export interface BreadcrumbItem {
@@ -11,12 +13,16 @@ export interface BreadcrumbItem {
 interface BreadcrumbsProps {
   items: BreadcrumbItem[]
   className?: string
+  /** Emit BreadcrumbList structured data (default: true). Turn off while labels are loading. */
+  structuredData?: boolean
 }
 
 /** Breadcrumb trail. "Home" is always prepended. */
-export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+export function Breadcrumbs({ items, className, structuredData = true }: BreadcrumbsProps) {
+  const { pathname } = useLocation()
   return (
     <nav aria-label="Breadcrumb" className={cn('text-sm', className)}>
+      {structuredData && <JsonLd data={breadcrumbLd(items, pathname)} />}
       <ol className="flex flex-wrap items-center gap-1 text-stone-500">
         <li>
           <Link

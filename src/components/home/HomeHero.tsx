@@ -1,9 +1,8 @@
-import { MapPin, Search } from 'lucide-react'
-import { useRef, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button, ButtonLink, Container, Input } from '@/components/ui'
+import { MapPin } from 'lucide-react'
+import { SearchBar } from '@/components/search'
+import { ButtonLink, Container } from '@/components/ui'
 import { siteConfig } from '@/config/site'
-import { cn, searchPath } from '@/utils'
+import { cn } from '@/utils'
 
 const HERO_TILES = [
   { emoji: '🍌', className: 'bg-accent-100' },
@@ -13,21 +12,8 @@ const HERO_TILES = [
 ]
 
 export function HomeHero() {
-  const navigate = useNavigate()
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const query = String(new FormData(event.currentTarget).get('q') ?? '').trim()
-    if (!query) {
-      inputRef.current?.focus()
-      return
-    }
-    navigate(searchPath(query))
-  }
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-cream">
+    <section className="relative bg-gradient-to-b from-brand-50 to-cream">
       <Container className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <p className="mb-3 text-xs font-semibold tracking-widest text-accent-600 uppercase">
@@ -42,27 +28,12 @@ export function HomeHero() {
             {siteConfig.city}.
           </p>
 
-          <form
-            role="search"
-            onSubmit={handleSubmit}
-            className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"
-          >
-            <Input
-              ref={inputRef}
-              type="search"
-              name="q"
-              label="Search products"
-              hideLabel
-              placeholder="Try “banana chips” or “sambar masala”"
-              icon={<Search />}
-              autoComplete="off"
-              containerClassName="flex-1"
-              className="h-12"
-            />
-            <Button type="submit" size="lg">
-              Search
-            </Button>
-          </form>
+          <SearchBar
+            size="lg"
+            showSubmitButton
+            placeholder="Try “banana chips” or “sambar masala”"
+            className="mt-8 max-w-xl"
+          />
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <ButtonLink

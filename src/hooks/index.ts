@@ -16,4 +16,5 @@ export {
   type ProductFiltersState,
 } from './useProductFilters'
 export { useQueryParams, type QueryParamValue } from './useQueryParams'
+export { MIN_SEARCH_LENGTH, useSearch, type UseSearchState } from './useSearch'
 export { useUserLocation } from './useUserLocation'

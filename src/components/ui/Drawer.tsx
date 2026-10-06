@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import { useEffect, useId, useRef, type KeyboardEvent, type ReactNode } from 'react'
+import { useEffect, useId, useRef, type KeyboardEvent, type ReactNode, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '@/utils'
 import { Button } from './Button'
@@ -16,6 +16,8 @@ interface DrawerProps {
   footer?: ReactNode
   side?: 'left' | 'right'
   className?: string
+  /** Element to focus when the drawer opens (default: the close button). */
+  initialFocusRef?: RefObject<HTMLElement | null>
 }
 
 /**
@@ -30,6 +32,7 @@ export function Drawer({
   footer,
   side = 'left',
   className,
+  initialFocusRef,
 }: DrawerProps) {
   const titleId = useId()
   const panelRef = useRef<HTMLDivElement>(null)
@@ -41,12 +44,13 @@ export function Drawer({
       document.activeElement instanceof HTMLElement ? document.activeElement : null
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    closeButtonRef.current?.focus()
+    const focusTarget = initialFocusRef?.current ?? closeButtonRef.current
+    focusTarget?.focus()
     return () => {
       document.body.style.overflow = previousOverflow
       previouslyFocused?.focus()
     }
-  }, [open])
+  }, [open, initialFocusRef])
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
@@ -71,8 +75,10 @@ export function Drawer({
   return createPortal(
     <div
       className={cn(
-        'fixed inset-0 z-50 transition-[visibility] duration-300 motion-reduce:transition-none',
-        !open && 'invisible',
+        'fixed inset-0 z-50',
+        // Become visible instantly on open (so focus can move inside straight away), but stay
+        // visible until the slide-out finishes on close.
+        !open && 'invisible transition-[visibility] duration-300 motion-reduce:transition-none',
       )}
       inert={!open}
     >

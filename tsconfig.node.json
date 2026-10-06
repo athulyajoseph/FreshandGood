@@ -7,11 +7,17 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "module": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
+
+    /* The sitemap script reads the seed data, which uses the @/ alias for type imports. */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Linting */
     "noUnusedLocals": true,
@@ -19,5 +25,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "scripts"]
 }

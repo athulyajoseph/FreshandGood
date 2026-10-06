@@ -1,7 +1,7 @@
 import { LayoutGrid } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { ProductBrowser } from '@/components/product'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { Seo } from '@/components/seo'
 import {
   Breadcrumbs,
   ButtonLink,
@@ -29,7 +29,14 @@ function CategoryBanner({ category }: { category: CategoryWithCount }) {
         </p>
         <p className="mt-4 max-w-xl text-stone-600">{category.description}</p>
       </div>
-      <SmartImage src={category.image} alt="" className="aspect-[3/2] md:aspect-auto" priority />
+      <SmartImage
+        src={category.image}
+        alt=""
+        width={1200}
+        height={800}
+        className="aspect-[3/2] md:aspect-auto"
+        priority
+      />
     </div>
   )
 }
@@ -52,7 +59,7 @@ function CategoryBannerSkeleton() {
 function CategoryNotFound({ slug }: { slug: string }) {
   return (
     <>
-      <PageMeta
+      <Seo
         title="Category not found"
         description="This category doesn't exist or has moved."
         noIndex
@@ -60,6 +67,7 @@ function CategoryNotFound({ slug }: { slug: string }) {
       <Container className="py-8 sm:py-12">
         <Breadcrumbs
           items={[{ label: 'Categories', to: '/categories' }, { label: 'Not found' }]}
+          structuredData={false}
           className="mb-6"
         />
         <EmptyState
@@ -94,10 +102,11 @@ export default function CategoryPage() {
 
   return (
     <>
-      <PageMeta title={category?.name ?? 'Category'} description={category?.description} />
+      <Seo title={category?.name ?? 'Category'} description={category?.description} />
       <Container className="py-8 sm:py-12">
         <Breadcrumbs
           items={[{ label: 'Categories', to: '/categories' }, { label: category?.name ?? '…' }]}
+          structuredData={Boolean(category)}
           className="mb-6"
         />
         {category ? (

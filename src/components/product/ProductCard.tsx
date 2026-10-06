@@ -25,6 +25,8 @@ export function ProductCard({ product, headingAs: Heading = 'h3', className }: P
         <SmartImage
           src={product.images[0]}
           alt={product.name}
+          width={800}
+          height={600}
           className="aspect-[4/3] rounded-2xl"
           imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
         />

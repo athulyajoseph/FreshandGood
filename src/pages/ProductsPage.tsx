@@ -1,5 +1,5 @@
 import { ProductBrowser } from '@/components/product'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { Seo } from '@/components/seo'
 import { Breadcrumbs, Container, SectionHeading } from '@/components/ui'
 import { siteConfig } from '@/config/site'
 import { useProductFilters } from '@/hooks'
@@ -9,7 +9,7 @@ export default function ProductsPage() {
 
   return (
     <>
-      <PageMeta
+      <Seo
         title="All Products"
         description={`Shop every ${siteConfig.name} product: Kerala produce, spices, snacks, seafood and breakfast staples. Filter by category, price, veg or non-veg.`}
       />

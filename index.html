@@ -1,41 +1,54 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#15803d" />
+
+    <!--
+      Defaults for crawlers that don't run JavaScript (e.g. WhatsApp and Facebook link previews).
+      main.tsx removes everything marked data-fallback-meta on startup, so pages only carry
+      the tags react-helmet-async renders for them.
+      %SITE_URL% is filled in at build time from VITE_SITE_URL (see vite.config.ts).
+    -->
     <title>Fresh & Good — Kerala groceries from shops near you</title>
     <meta
       name="description"
-      content="Discover fresh Kerala produce, spices, snacks, seafood and dairy, and find a Fresh & Good partner shop near you in Kochi."
+      content="Discover fresh Kerala produce, spices, snacks, seafood and breakfast staples, and find a Fresh & Good partner shop near you in Kochi."
+      data-fallback-meta
     />
-    <meta name="theme-color" content="#15803d" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Fresh & Good" />
-    <meta property="og:title" content="Fresh & Good — Kerala groceries from shops near you" />
+    <link rel="canonical" href="%SITE_URL%/" data-fallback-meta />
+    <meta property="og:type" content="website" data-fallback-meta />
+    <meta property="og:site_name" content="Fresh & Good" data-fallback-meta />
+    <meta property="og:locale" content="en_IN" data-fallback-meta />
+    <meta
+      property="og:title"
+      content="Fresh & Good — Kerala groceries from shops near you"
+      data-fallback-meta
+    />
     <meta
       property="og:description"
-      content="Discover fresh Kerala produce, spices, snacks, seafood and dairy, and find a partner shop near you in Kochi."
+      content="Homemade Kerala snacks, stone-ground masalas, fresh produce and the morning's catch, stocked at partner shops near you across Kochi."
+      data-fallback-meta
     />
-    <meta property="og:locale" content="en_IN" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Fresh & Good — Kerala groceries from shops near you" />
-    <meta
-      name="twitter:description"
-      content="Discover fresh Kerala produce, spices, snacks, seafood and dairy near you in Kochi."
-    />
+    <meta property="og:url" content="%SITE_URL%/" data-fallback-meta />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" data-fallback-meta />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" data-fallback-meta />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.png" data-fallback-meta />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { CategoryGrid } from '@/components/category'
-import { PageMeta } from '@/components/seo/PageMeta'
+import { Seo } from '@/components/seo'
 import { Breadcrumbs, Container, SectionHeading } from '@/components/ui'
 import { useAsync } from '@/hooks'
 import { categoryService } from '@/services'
@@ -10,7 +10,7 @@ export default function CategoriesPage() {
 
   return (
     <>
-      <PageMeta
+      <Seo
         title="Categories"
         description="Browse Kerala fruits and vegetables, spices and masalas, snacks and sweets, seafood and meat, and rice and breakfast staples."
       />

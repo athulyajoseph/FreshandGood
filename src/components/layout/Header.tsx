@@ -1,7 +1,8 @@
 import { Menu, Search, X } from 'lucide-react'
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Button, Container, Input } from '@/components/ui'
+import { SearchBar, SearchOverlay } from '@/components/search'
+import { Button, Container } from '@/components/ui'
 import { navLinks } from '@/config/site'
 import { cn } from '@/utils'
 import { Logo } from './Logo'
@@ -18,27 +19,9 @@ const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'bg-brand-50 text-brand-800' : 'text-stone-700 hover:bg-stone-100',
   )
 
-function HeaderSearch({ className }: { className?: string }) {
-  // Search is wired up in Phase 4; for now the form is display-only.
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => event.preventDefault()
-
-  return (
-    <form role="search" onSubmit={handleSubmit} className={className}>
-      <Input
-        type="search"
-        name="q"
-        label="Search products"
-        hideLabel
-        placeholder="Search banana chips, karimeen…"
-        icon={<Search />}
-        autoComplete="off"
-      />
-    </form>
-  )
-}
-
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
   // Close on Escape and lock page scroll while the mobile menu is open.
@@ -73,19 +56,38 @@ export function Header() {
           </ul>
         </nav>
 
-        <HeaderSearch className="ml-auto hidden w-full max-w-xs md:block" />
+        <SearchBar className="ml-auto hidden w-full max-w-xs md:flex xl:max-w-sm" />
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="ml-auto md:ml-0 lg:hidden"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-        </Button>
+        <div className="ml-auto flex items-center gap-1 md:ml-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            aria-label="Search"
+            aria-haspopup="dialog"
+            onClick={() => {
+              closeMenu()
+              setSearchOpen(true)
+            }}
+          >
+            <Search className="size-5" aria-hidden="true" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? (
+              <X className="size-6" aria-hidden="true" />
+            ) : (
+              <Menu className="size-6" aria-hidden="true" />
+            )}
+          </Button>
+        </div>
       </Container>
 
       {/* Mobile menu */}
@@ -107,7 +109,6 @@ export function Header() {
         )}
       >
         <Container className="py-4">
-          <HeaderSearch className="mb-4 md:hidden" />
           <nav aria-label="Mobile">
             <ul className="flex flex-col gap-1">
               {navLinks.map((link) => (
@@ -126,6 +127,8 @@ export function Header() {
           </nav>
         </Container>
       </div>
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }

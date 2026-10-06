@@ -46,6 +46,8 @@ export function ProductGallery({ images, name, className }: ProductGalleryProps)
         <SmartImage
           src={images[index]}
           alt={count > 1 ? `${name}, image ${index + 1} of ${count}` : name}
+          width={800}
+          height={800}
           className="aspect-square rounded-3xl border border-stone-200"
           priority
         />
@@ -85,7 +87,7 @@ export function ProductGallery({ images, name, className }: ProductGalleryProps)
                   : 'border-transparent opacity-70 hover:opacity-100',
               )}
             >
-              <SmartImage src={src} alt="" className="aspect-square" />
+              <SmartImage src={src} alt="" width={160} height={160} className="aspect-square" />
             </button>
           ))}
         </div>

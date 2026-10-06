@@ -1,0 +1,21 @@
+{
+  "name": "Fresh & Good — Kerala groceries from shops near you",
+  "short_name": "Fresh & Good",
+  "description": "Homemade Kerala snacks, spices, produce and seafood, stocked at partner shops across Kochi.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fdfbf6",
+  "theme_color": "#15803d",
+  "lang": "en-IN",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -27,6 +27,8 @@ export function CategoryCard({
       <SmartImage
         src={category.image}
         alt={category.name}
+        width={600}
+        height={400}
         className="aspect-[3/2]"
         imgClassName="transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none"
       />

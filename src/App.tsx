@@ -36,7 +36,7 @@ export default function App() {
                 <Route path="search" element={<SearchPage />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="contact" element={<ContactPage />} />
-                {/* Phase 1 URL shapes, kept so old links keep working. */}
+                {/* Older URL shapes, kept so existing links keep working. */}
                 <Route path="categories/:slug" element={<LegacyRedirect to={categoryPath} />} />
                 <Route path="products/:slug" element={<LegacyRedirect to={productPath} />} />
                 <Route path="*" element={<NotFoundPage />} />
