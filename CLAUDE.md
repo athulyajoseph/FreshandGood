@@ -1,0 +1,11 @@
+## Working Rules for Claude Code
+- This project is built in 4 phases. Only build the phase I ask for in each session.
+  - Phase 1: Foundation & layout (setup, types, data, utils, services, UI primitives, layout, routing, placeholder pages)
+  - Phase 2: Home, Categories, Category page, Products, Product detail
+  - Phase 3: Find a Shop, geolocation, maps, shop availability on product pages
+  - Phase 4: Search, About, Contact, SEO (sitemap, robots, meta), final README, deployment polish
+- Create and edit files directly; never leave TODOs or omitted code.
+- After making changes, run `npm run build` and `npm run lint` and fix all errors before saying you're done.
+- Use the `@/` path alias for imports.
+- Keep all data access inside src/services/ — components never import from src/data/ directly.
+- Ask me before adding any dependency that isn't in the spec.
