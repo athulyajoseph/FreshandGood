@@ -26,8 +26,14 @@ interface Settled<T> {
  *
  * @example
  * const { data, isLoading } = useAsync(useCallback(() => productService.getBySlug(slug), [slug]))
+ *
+ * With `keepPreviousData`, `data` keeps the last successful result while a new request is
+ * loading (status is still `'loading'`), so lists don't flash empty as filters change.
  */
-export function useAsync<T>(asyncFn: () => Promise<T>): AsyncState<T> {
+export function useAsync<T>(
+  asyncFn: () => Promise<T>,
+  { keepPreviousData = false }: { keepPreviousData?: boolean } = {},
+): AsyncState<T> {
   const [attempt, setAttempt] = useState(0)
   const [settled, setSettled] = useState<Settled<T> | null>(null)
 
@@ -60,7 +66,7 @@ export function useAsync<T>(asyncFn: () => Promise<T>): AsyncState<T> {
 
   return {
     status,
-    data: current?.data,
+    data: current ? current.data : keepPreviousData ? settled?.data : undefined,
     error: current?.error,
     isLoading: status === 'loading',
     retry,

@@ -29,6 +29,14 @@
   --color-cream: #fdfbf6;
 
   --color-whatsapp: #25d366;
+
+  /* Soft, layered shadows tinted with stone-900 for elevated cards */
+  --shadow-soft:
+    0 1px 2px rgb(28 25 23 / 0.04), 0 4px 12px -2px rgb(28 25 23 / 0.06),
+    0 12px 24px -8px rgb(28 25 23 / 0.06);
+  --shadow-lift:
+    0 2px 4px rgb(28 25 23 / 0.04), 0 12px 24px -6px rgb(28 25 23 / 0.08),
+    0 28px 48px -16px rgb(28 25 23 / 0.14);
 }
 
 @layer base {
@@ -42,5 +50,58 @@
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+/* Leaflet maps (Find a Shop, product availability) */
+.leaflet-container {
+  font-family: inherit;
+}
+
+/* Default Leaflet markers are blue; tint shop markers brand green and the selected one turmeric. */
+.fg-shop-marker {
+  filter: hue-rotate(-70deg) saturate(1.2);
+}
+
+.fg-shop-marker-selected {
+  filter: hue-rotate(190deg) saturate(1.6) brightness(1.05);
+}
+
+/* "You are here": a blue dot with a soft pulse, distinct from the pin-shaped shop markers. */
+.fg-user-marker span {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #fff;
+  border-radius: 9999px;
+  background: #2563eb;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+
+.fg-user-marker span::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border-radius: 9999px;
+  background: rgb(37 99 235 / 0.25);
+  animation: fg-user-pulse 2s ease-out infinite;
+}
+
+@keyframes fg-user-pulse {
+  from {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fg-user-marker span::after {
+    animation: none;
+    opacity: 0.6;
   }
 }

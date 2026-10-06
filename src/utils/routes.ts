@@ -10,3 +10,7 @@ export const productsWithTagPath = (tag: string): string =>
 
 export const searchPath = (query: string): string =>
   `/search?${new URLSearchParams({ q: query.trim() })}`
+
+/** Find a Shop filtered to shops stocking one product, e.g. `/shops?product=mango-pickle`. */
+export const shopsForProductPath = (productSlug: string): string =>
+  `/shops?${new URLSearchParams({ product: productSlug })}`

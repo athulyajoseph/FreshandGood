@@ -1,4 +1,5 @@
 export { cn } from './cn'
+export { directionsUrl } from './directions'
 export { formatPrice } from './formatPrice'
 export { formatDistance, haversineKm } from './distance'
 export { formatOpeningHours, formatTime } from './openingHours'
@@ -9,5 +10,11 @@ export {
   sortProducts,
   type ProductCriteria,
 } from './productQuery'
-export { categoryPath, productPath, productsWithTagPath, searchPath } from './routes'
+export {
+  categoryPath,
+  productPath,
+  productsWithTagPath,
+  searchPath,
+  shopsForProductPath,
+} from './routes'
 export { slugify } from './slugify'

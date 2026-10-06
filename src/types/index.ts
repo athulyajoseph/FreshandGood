@@ -107,3 +107,14 @@ export interface ProductFacets {
 export type ProductSortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'
 
 export type ShopSortOption = 'distance' | 'name'
+
+/** A shop that carries `distanceKm` only when the user's location is known. */
+export type ShopResult = Shop & Partial<Pick<ShopWithDistance, 'distanceKm'>>
+
+/** Criteria for the Find a Shop page. Category and product are identified by slug. */
+export interface ShopFilters {
+  /** Free-text search across shop name, area, address, city and pincode. */
+  query?: string
+  category?: string
+  product?: string
+}

@@ -272,7 +272,11 @@ export default function ProductDetailPage() {
             <ProductInfo product={data.product} category={data.category} />
           </div>
 
-          <ProductShopAvailability productId={data.product.id} className="mt-16 scroll-mt-24" />
+          <ProductShopAvailability
+            productId={data.product.id}
+            productSlug={data.product.slug}
+            className="mt-16 scroll-mt-24"
+          />
           <RelatedProducts productId={data.product.id} />
         </>
       )}

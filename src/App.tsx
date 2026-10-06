@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { LegacyRedirect } from '@/components/common/LegacyRedirect'
 import { Layout } from '@/components/layout/Layout'
 import { ErrorBoundary } from '@/components/ui'
+import { LocationProvider } from '@/context/LocationProvider'
 import { categoryPath, productPath } from '@/utils'
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
@@ -21,26 +22,28 @@ export default function App() {
   return (
     <HelmetProvider>
       <ErrorBoundary>
-        <BrowserRouter>
-          <Routes>
-            {/* Layout wraps every page in Suspense and a per-route ErrorBoundary. */}
-            <Route element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="categories" element={<CategoriesPage />} />
-              <Route path="category/:slug" element={<CategoryPage />} />
-              <Route path="products" element={<ProductsPage />} />
-              <Route path="product/:slug" element={<ProductDetailPage />} />
-              <Route path="shops" element={<ShopsPage />} />
-              <Route path="search" element={<SearchPage />} />
-              <Route path="about" element={<AboutPage />} />
-              <Route path="contact" element={<ContactPage />} />
-              {/* Phase 1 URL shapes, kept so old links keep working. */}
-              <Route path="categories/:slug" element={<LegacyRedirect to={categoryPath} />} />
-              <Route path="products/:slug" element={<LegacyRedirect to={productPath} />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <LocationProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Layout wraps every page in Suspense and a per-route ErrorBoundary. */}
+              <Route element={<Layout />}>
+                <Route index element={<HomePage />} />
+                <Route path="categories" element={<CategoriesPage />} />
+                <Route path="category/:slug" element={<CategoryPage />} />
+                <Route path="products" element={<ProductsPage />} />
+                <Route path="product/:slug" element={<ProductDetailPage />} />
+                <Route path="shops" element={<ShopsPage />} />
+                <Route path="search" element={<SearchPage />} />
+                <Route path="about" element={<AboutPage />} />
+                <Route path="contact" element={<ContactPage />} />
+                {/* Phase 1 URL shapes, kept so old links keep working. */}
+                <Route path="categories/:slug" element={<LegacyRedirect to={categoryPath} />} />
+                <Route path="products/:slug" element={<LegacyRedirect to={productPath} />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </LocationProvider>
       </ErrorBoundary>
     </HelmetProvider>
   )

@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { useCallback } from 'react'
 import { CategoryGrid } from '@/components/category'
 import { HomeHero } from '@/components/home/HomeHero'
-import { ShopTeaser } from '@/components/home/ShopTeaser'
+import { NearbyShops } from '@/components/home/NearbyShops'
 import { Testimonials } from '@/components/home/Testimonials'
 import { WhyChooseUs } from '@/components/home/WhyChooseUs'
 import { ProductGrid } from '@/components/product'
@@ -73,7 +73,7 @@ export default function HomePage() {
       </section>
 
       <WhyChooseUs />
-      <ShopTeaser />
+      <NearbyShops />
       <Testimonials />
     </>
   )
