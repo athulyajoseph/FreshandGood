@@ -2,7 +2,7 @@
 
 A storefront for Kerala groceries in Kochi. Browse fresh produce, spices, snacks, seafood and breakfast staples, and find the nearest partner shop that stocks them.
 
-> **Status:** Phase 1 (foundation and layout) is complete. Pages other than the 404 are placeholders until their phase is built.
+> **Status:** Phases 1 (foundation and layout) and 2 (catalogue) are complete. Find a Shop, Search, About and Contact are placeholders until their phase is built.
 
 ## Tech stack
 
@@ -54,18 +54,24 @@ src/
 ├── main.tsx             # Entry point
 ├── index.css            # Tailwind import + brand theme tokens
 ├── components/
-│   ├── common/          # PageLoader, PhasePlaceholder
+│   ├── category/        # CategoryCard, CategoryGrid
+│   ├── common/          # PageLoader, PhasePlaceholder, LegacyRedirect
+│   ├── home/            # HomeHero, WhyChooseUs, ShopTeaser, Testimonials
 │   ├── layout/          # Header, Footer, Layout, Logo, ScrollToTop, WhatsAppButton
+│   ├── product/         # ProductCard/Grid, ProductBrowser, ProductFilters, ProductSort,
+│   │                    # ActiveFilterChips, ProductGallery, ProductShopAvailability
 │   ├── seo/             # PageMeta (Helmet wrapper)
 │   └── ui/              # Button, Card, Badge, DietBadge, Input, Skeleton, EmptyState,
-│                        # Breadcrumbs, Container, SectionHeading, ErrorBoundary
+│                        # Breadcrumbs, Container, SectionHeading, ErrorBoundary, ErrorState,
+│                        # SmartImage, Drawer, Checkbox, Select
 ├── config/site.ts       # Site name, contact details, nav links, WhatsApp link builder
 ├── data/                # Seed data: categories, products, shops (services only!)
-├── hooks/               # useAsync, useDebounce, useQueryParams
+├── hooks/               # useAsync, useDebounce, useQueryParams, useProductFilters
 ├── pages/               # One file per route
 ├── services/            # categoryService, productService, shopService
 ├── types/               # Shared domain types
-└── utils/               # cn, formatPrice, haversineKm/formatDistance, slugify
+└── utils/               # cn, formatPrice, distance, opening hours, pluralize, slugify,
+                         # product filter/sort helpers, route path builders
 ```
 
 ### Conventions
@@ -73,22 +79,24 @@ src/
 - **Imports** use the `@/` alias for `src/` (e.g. `import { cn } from '@/utils'`).
 - **Data access goes through `src/services/`.** Components and pages never import from `src/data/`, and ESLint enforces this with `no-restricted-imports`. Service functions are async and add a small simulated delay, so swapping in a real API later won't change any callers.
 - **Seed data integrity** (unique IDs and slugs, valid category and shop references) is checked in development, and any problems are logged to the browser console.
+- **Filters live in the URL.** `useProductFilters` reads `diet`, `minPrice`, `maxPrice`, `tags`, `categories` and `sort` from the query string (lists are comma-separated), so refreshes and shared links keep the filters.
+- **Images** live in `public/images/` (placeholder SVGs for now; swap paths in the seed data for real photos). `SmartImage` reserves a fixed aspect ratio, lazy-loads, and falls back to `/images/fallback.svg` on error.
 - **`useAsync`** expects a memoised function: `useAsync(useCallback(() => productService.getBySlug(slug), [slug]))`.
 
 ## Routes
 
-| Path                | Page           | Phase |
-| ------------------- | -------------- | ----- |
-| `/`                 | Home           | 2     |
-| `/categories`       | All categories | 2     |
-| `/categories/:slug` | Category       | 2     |
-| `/products`         | All products   | 2     |
-| `/products/:slug`   | Product detail | 2     |
-| `/shops`            | Find a Shop    | 3     |
-| `/search?q=`        | Search results | 4     |
-| `/about`            | About          | 4     |
-| `/contact`          | Contact        | 4     |
-| `*`                 | 404 Not Found  | 1 ✅  |
+| Path              | Page           | Phase |
+| ----------------- | -------------- | ----- |
+| `/`               | Home           | 2 ✅  |
+| `/categories`     | All categories | 2 ✅  |
+| `/category/:slug` | Category       | 2 ✅  |
+| `/products`       | All products   | 2 ✅  |
+| `/product/:slug`  | Product detail | 2 ✅  |
+| `/shops`          | Find a Shop    | 3     |
+| `/search?q=`      | Search results | 4     |
+| `/about`          | About          | 4     |
+| `/contact`        | Contact        | 4     |
+| `*`               | 404 Not Found  | 1 ✅  |
 
 ## Build phases
 

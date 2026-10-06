@@ -1,7 +1,8 @@
-import { useId, type InputHTMLAttributes, type ReactNode } from 'react'
+import { useId, type InputHTMLAttributes, type ReactNode, type Ref } from 'react'
 import { cn } from '@/utils'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  ref?: Ref<HTMLInputElement>
   label?: string
   /** Visually hide the label while keeping it for screen readers. */
   hideLabel?: boolean

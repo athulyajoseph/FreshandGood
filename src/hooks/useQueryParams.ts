@@ -1,7 +1,10 @@
 import { useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-export type QueryParamValue = string | number | boolean | null | undefined
+/** Arrays are stored comma-separated (`?tags=sweet,teatime`); an empty array removes the key. */
+export type QueryParamValue = string | number | boolean | readonly string[] | null | undefined
+
+const LIST_SEPARATOR = ','
 
 interface SetOptions {
   /** Replace the current history entry instead of pushing a new one (default: true). */
@@ -27,14 +30,29 @@ export function useQueryParams() {
     [searchParams],
   )
 
+  /** A comma-separated parameter as a de-duplicated list, without empty entries. */
+  const getList = useCallback(
+    (key: string): string[] => {
+      const raw = searchParams.get(key)
+      if (!raw) return []
+      const items = raw.split(LIST_SEPARATOR).map((item) => item.trim())
+      return [...new Set(items.filter(Boolean))]
+    },
+    [searchParams],
+  )
+
   const set = useCallback(
     (updates: Record<string, QueryParamValue>, { replace = true }: SetOptions = {}) => {
       setSearchParams(
         (current) => {
           const next = new URLSearchParams(current)
           for (const [key, value] of Object.entries(updates)) {
-            if (value === null || value === undefined || value === '') next.delete(key)
-            else next.set(key, String(value))
+            const serialised = Array.isArray(value) ? value.join(LIST_SEPARATOR) : value
+            if (serialised === null || serialised === undefined || serialised === '') {
+              next.delete(key)
+            } else {
+              next.set(key, String(serialised))
+            }
           }
           return next
         },
@@ -59,5 +77,5 @@ export function useQueryParams() {
     [setSearchParams],
   )
 
-  return { params: searchParams, get, getNumber, set, clear }
+  return { params: searchParams, get, getNumber, getList, set, clear }
 }

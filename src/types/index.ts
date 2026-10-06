@@ -13,6 +13,8 @@ export interface Category {
   description: string
   /** Decorative emoji used as a lightweight visual until real imagery exists. */
   emoji: string
+  /** Banner / card image path (relative to the site root). */
+  image: string
 }
 
 /** A category plus the number of products it contains. */
@@ -37,6 +39,11 @@ export interface Product {
   tags: string[]
   isFeatured: boolean
   emoji: string
+  /** Gallery image paths; the first is the primary image. */
+  images: string[]
+  ingredients: string[]
+  /** Human-readable shelf life, e.g. "6 months in an airtight container". */
+  shelfLife: string
   /** IDs of shops that stock this product. Every ID must exist in the shop list. */
   shopIds: string[]
 }
@@ -76,6 +83,10 @@ export type DietFilter = 'all' | 'veg' | 'non-veg'
 export interface ProductFilters {
   /** Category slug. */
   category?: string
+  /** Category slugs; a product matches if it is in any of them. */
+  categories?: string[]
+  /** A product matches if it has any of these tags. */
+  tags?: string[]
   /** Free-text search across name, Malayalam name, description and tags. */
   query?: string
   diet?: DietFilter
@@ -83,6 +94,14 @@ export interface ProductFilters {
   maxPrice?: number
   /** Only products stocked by this shop. */
   shopId?: string
+}
+
+/** Filter options available for a set of products. */
+export interface ProductFacets {
+  /** Lowest and highest price in the set (both 0 when the set is empty). */
+  priceRange: { min: number; max: number }
+  /** Every tag in the set with the number of products carrying it, most common first. */
+  tags: { value: string; count: number }[]
 }
 
 export type ProductSortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'

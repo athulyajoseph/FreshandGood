@@ -7,10 +7,19 @@ interface EmptyStateProps {
   description?: ReactNode
   /** Buttons or links shown below the description. */
   action?: ReactNode
+  /** `danger` tints the icon red, for error states. */
+  tone?: 'default' | 'danger'
   className?: string
 }
 
-export function EmptyState({ icon, title, description, action, className }: EmptyStateProps) {
+export function EmptyState({
+  icon,
+  title,
+  description,
+  action,
+  tone = 'default',
+  className,
+}: EmptyStateProps) {
   return (
     <div
       className={cn(
@@ -19,7 +28,12 @@ export function EmptyState({ icon, title, description, action, className }: Empt
       )}
     >
       {icon && (
-        <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-brand-50 text-brand-700 [&_svg]:size-7">
+        <div
+          className={cn(
+            'mb-4 flex size-14 items-center justify-center rounded-full [&_svg]:size-7',
+            tone === 'danger' ? 'bg-red-50 text-red-600' : 'bg-brand-50 text-brand-700',
+          )}
+        >
           {icon}
         </div>
       )}

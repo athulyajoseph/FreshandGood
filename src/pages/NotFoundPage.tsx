@@ -5,6 +5,7 @@ import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, ButtonLink, Container, Skeleton } from '@/components/ui'
 import { useAsync } from '@/hooks'
 import { categoryService } from '@/services'
+import { categoryPath } from '@/utils'
 
 function CategorySuggestions() {
   const { data: categories, status } = useAsync(useCallback(() => categoryService.getAll(), []))
@@ -30,7 +31,7 @@ function CategorySuggestions() {
           : categories.map((category) => (
               <li key={category.id}>
                 <Link
-                  to={`/categories/${category.slug}`}
+                  to={categoryPath(category.slug)}
                   className="flex h-24 flex-col items-center justify-center gap-1 rounded-2xl border border-stone-200 bg-white px-3 text-center transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
                 >
                   <span className="text-2xl" aria-hidden="true">

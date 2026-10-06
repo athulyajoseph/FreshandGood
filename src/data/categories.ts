@@ -9,6 +9,7 @@ export const categories: Category[] = [
     description:
       'Farm-fresh Kerala produce — nendran bananas, tender jackfruit, drumsticks and more, delivered to local shops every morning.',
     emoji: '🍌',
+    image: '/images/categories/fruits-and-vegetables.svg',
   },
   {
     id: 'cat-spices',
@@ -18,6 +19,7 @@ export const categories: Category[] = [
     description:
       'Single-origin spices from Idukki and Wayanad, plus stone-ground masala blends for sambar, fish curry and more.',
     emoji: '🌶️',
+    image: '/images/categories/spices-and-masalas.svg',
   },
   {
     id: 'cat-snacks',
@@ -27,6 +29,7 @@ export const categories: Category[] = [
     description:
       'Coconut-oil banana chips, Kozhikodan halwa, achappam and the teatime bites Kerala grew up on.',
     emoji: '🍪',
+    image: '/images/categories/snacks-and-sweets.svg',
   },
   {
     id: 'cat-seafood',
@@ -36,6 +39,7 @@ export const categories: Category[] = [
     description:
       'Same-day catch from Kochi harbour and fresh-cut meats, cleaned and ready for your favourite Kerala recipes.',
     emoji: '🐟',
+    image: '/images/categories/seafood-and-meat.svg',
   },
   {
     id: 'cat-breakfast',
@@ -45,5 +49,6 @@ export const categories: Category[] = [
     description:
       'Kerala matta rice, puttu podi, appam batter and coconut staples for a proper Malayali breakfast.',
     emoji: '🍚',
+    image: '/images/categories/rice-and-breakfast.svg',
   },
 ]

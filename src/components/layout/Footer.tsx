@@ -7,9 +7,9 @@ import { Logo } from './Logo'
 const shopLinks = [
   { label: 'All products', to: '/products' },
   { label: 'Categories', to: '/categories' },
-  { label: 'Fruits & Vegetables', to: '/categories/fruits-and-vegetables' },
-  { label: 'Spices & Masalas', to: '/categories/spices-and-masalas' },
-  { label: 'Seafood & Meat', to: '/categories/seafood-and-meat' },
+  { label: 'Fruits & Vegetables', to: '/category/fruits-and-vegetables' },
+  { label: 'Spices & Masalas', to: '/category/spices-and-masalas' },
+  { label: 'Seafood & Meat', to: '/category/seafood-and-meat' },
 ]
 
 const companyLinks = [

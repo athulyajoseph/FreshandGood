@@ -11,6 +11,8 @@ interface SectionHeadingProps {
   /** Heading level (default: 2). */
   as?: 'h1' | 'h2' | 'h3'
   align?: 'left' | 'center'
+  /** id for the heading element, e.g. for a section's `aria-labelledby`. */
+  headingId?: string
   className?: string
 }
 
@@ -21,6 +23,7 @@ export function SectionHeading({
   action,
   as: Heading = 'h2',
   align = 'left',
+  headingId,
   className,
 }: SectionHeadingProps) {
   const centered = align === 'center'
@@ -39,6 +42,7 @@ export function SectionHeading({
           </p>
         )}
         <Heading
+          id={headingId}
           className={cn(
             'font-bold tracking-tight text-stone-900',
             Heading === 'h1' ? 'text-3xl sm:text-4xl' : 'text-2xl sm:text-3xl',

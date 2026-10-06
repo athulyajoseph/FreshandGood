@@ -15,6 +15,10 @@ type ShopKey =
 /** Builds shop IDs from typed keys so a typo fails type-checking. */
 const at = (...keys: ShopKey[]): string[] => keys.map((key) => `shop-${key}`)
 
+/** Gallery image paths for a product: `/images/products/<slug>-<n>.svg`. */
+const gallery = (slug: string): string[] =>
+  [1, 2, 3].map((n) => `/images/products/${slug}-${n}.svg`)
+
 const ALL_SHOPS = at(
   'edappally',
   'kakkanad',
@@ -45,6 +49,9 @@ export const products: Product[] = [
     tags: ['banana', 'fruit', 'pazham pori'],
     isFeatured: true,
     emoji: '🍌',
+    images: gallery('nendran-banana'),
+    ingredients: ['Nendran banana'],
+    shelfLife: '4–6 days at room temperature',
     shopIds: ALL_SHOPS,
   },
   {
@@ -62,6 +69,9 @@ export const products: Product[] = [
     tags: ['jackfruit', 'thoran', 'seasonal'],
     isFeatured: false,
     emoji: '🍈',
+    images: gallery('tender-jackfruit'),
+    ingredients: ['Tender green jackfruit'],
+    shelfLife: '3 days; refrigerate once cut',
     shopIds: at('edappally', 'kakkanad', 'aluva', 'tripunithura'),
   },
   {
@@ -79,6 +89,9 @@ export const products: Product[] = [
     tags: ['sambar', 'avial', 'vegetable'],
     isFeatured: false,
     emoji: '🥢',
+    images: gallery('drumsticks'),
+    ingredients: ['Fresh drumsticks (moringa pods)'],
+    shelfLife: '5 days refrigerated',
     shopIds: at('edappally', 'vyttila', 'kaloor', 'palarivattom', 'mg-road', 'tripunithura'),
   },
   {
@@ -96,6 +109,9 @@ export const products: Product[] = [
     tags: ['banana', 'sadya', 'vegetable'],
     isFeatured: false,
     emoji: '🍌',
+    images: gallery('raw-banana'),
+    ingredients: ['Raw Nendran banana'],
+    shelfLife: '5–7 days at room temperature',
     shopIds: at('edappally', 'kakkanad', 'vyttila', 'aluva', 'tripunithura', 'palarivattom'),
   },
   {
@@ -112,6 +128,9 @@ export const products: Product[] = [
     tags: ['olan', 'sadya', 'vegetable'],
     isFeatured: false,
     emoji: '🥒',
+    images: gallery('ash-gourd'),
+    ingredients: ['Ash gourd (kumbalanga)'],
+    shelfLife: '2 weeks whole; 3 days once cut',
     shopIds: at('kakkanad', 'fort-kochi', 'kaloor', 'aluva'),
   },
   {
@@ -128,6 +147,9 @@ export const products: Product[] = [
     tags: ['root vegetable', 'puzhukku'],
     isFeatured: false,
     emoji: '🥔',
+    images: gallery('colocasia'),
+    ingredients: ['Colocasia root (chembu)'],
+    shelfLife: '1 week in a cool, dry place',
     shopIds: at('edappally', 'vyttila', 'panampilly-nagar', 'tripunithura'),
   },
   {
@@ -145,6 +167,9 @@ export const products: Product[] = [
     tags: ['kappa', 'root vegetable', 'kappa meen curry'],
     isFeatured: true,
     emoji: '🍠',
+    images: gallery('tapioca'),
+    ingredients: ['Fresh tapioca (kappa)'],
+    shelfLife: '2 days; cook soon after purchase',
     shopIds: ALL_SHOPS,
   },
   {
@@ -162,6 +187,9 @@ export const products: Product[] = [
     tags: ['herbs', 'tempering'],
     isFeatured: false,
     emoji: '🌿',
+    images: gallery('curry-leaves'),
+    ingredients: ['Fresh curry leaves'],
+    shelfLife: '1 week refrigerated in a paper towel',
     shopIds: ALL_SHOPS,
   },
 
@@ -181,6 +209,9 @@ export const products: Product[] = [
     tags: ['pepper', 'whole spice', 'malabar'],
     isFeatured: true,
     emoji: '⚫',
+    images: gallery('idukki-black-pepper'),
+    ingredients: ['Whole black pepper'],
+    shelfLife: '12 months in an airtight container',
     shopIds: at('edappally', 'kakkanad', 'fort-kochi', 'panampilly-nagar', 'mg-road', 'aluva'),
   },
   {
@@ -198,6 +229,9 @@ export const products: Product[] = [
     tags: ['cardamom', 'whole spice', 'payasam'],
     isFeatured: true,
     emoji: '🟢',
+    images: gallery('green-cardamom'),
+    ingredients: ['Whole green cardamom pods'],
+    shelfLife: '12 months in an airtight container',
     shopIds: at('edappally', 'fort-kochi', 'vyttila', 'panampilly-nagar', 'mg-road'),
   },
   {
@@ -214,6 +248,9 @@ export const products: Product[] = [
     tags: ['turmeric', 'powder'],
     isFeatured: false,
     emoji: '🟡',
+    images: gallery('turmeric-powder'),
+    ingredients: ['Alleppey turmeric'],
+    shelfLife: '12 months; keep dry',
     shopIds: ALL_SHOPS,
   },
   {
@@ -231,6 +268,9 @@ export const products: Product[] = [
     tags: ['chilli', 'powder'],
     isFeatured: false,
     emoji: '🌶️',
+    images: gallery('kashmiri-chilli-powder'),
+    ingredients: ['Kashmiri red chilli'],
+    shelfLife: '9 months; keep dry and away from light',
     shopIds: at('kakkanad', 'vyttila', 'kaloor', 'aluva', 'tripunithura', 'palarivattom'),
   },
   {
@@ -248,6 +288,18 @@ export const products: Product[] = [
     tags: ['masala', 'sambar', 'blend'],
     isFeatured: false,
     emoji: '🥘',
+    images: gallery('sambar-masala'),
+    ingredients: [
+      'Coriander',
+      'Red chilli',
+      'Fenugreek',
+      'Cumin',
+      'Black pepper',
+      'Asafoetida',
+      'Curry leaves',
+      'Turmeric',
+    ],
+    shelfLife: '6 months in an airtight container',
     shopIds: at('edappally', 'kaloor', 'panampilly-nagar', 'tripunithura', 'mg-road'),
   },
   {
@@ -265,6 +317,9 @@ export const products: Product[] = [
     tags: ['masala', 'fish curry', 'blend'],
     isFeatured: false,
     emoji: '🍛',
+    images: gallery('fish-curry-masala'),
+    ingredients: ['Kashmiri chilli', 'Coriander', 'Turmeric', 'Fenugreek', 'Black pepper', 'Salt'],
+    shelfLife: '6 months in an airtight container',
     shopIds: at('fort-kochi', 'vyttila', 'kaloor', 'palarivattom', 'aluva'),
   },
   {
@@ -282,6 +337,9 @@ export const products: Product[] = [
     tags: ['cloves', 'whole spice'],
     isFeatured: false,
     emoji: '🌰',
+    images: gallery('cloves'),
+    ingredients: ['Whole cloves'],
+    shelfLife: '18 months in an airtight container',
     shopIds: at('edappally', 'fort-kochi', 'mg-road'),
   },
 
@@ -301,6 +359,9 @@ export const products: Product[] = [
     tags: ['chips', 'coconut oil', 'snack'],
     isFeatured: true,
     emoji: '🍟',
+    images: gallery('banana-chips'),
+    ingredients: ['Nendran banana', 'Coconut oil', 'Salt', 'Turmeric'],
+    shelfLife: '45 days unopened; 1 week once opened',
     shopIds: ALL_SHOPS,
   },
   {
@@ -318,6 +379,9 @@ export const products: Product[] = [
     tags: ['jaggery', 'sadya', 'sweet'],
     isFeatured: false,
     emoji: '🍯',
+    images: gallery('sharkara-varatti'),
+    ingredients: ['Nendran banana', 'Jaggery', 'Coconut oil', 'Dry ginger', 'Cardamom', 'Cumin'],
+    shelfLife: '30 days unopened',
     shopIds: at('edappally', 'kakkanad', 'vyttila', 'kaloor', 'tripunithura'),
   },
   {
@@ -335,6 +399,9 @@ export const products: Product[] = [
     tags: ['halwa', 'sweet', 'gift'],
     isFeatured: true,
     emoji: '🍬',
+    images: gallery('kozhikodan-halwa'),
+    ingredients: ['Maida', 'Sugar', 'Ghee', 'Coconut oil', 'Cashew nuts', 'Cardamom'],
+    shelfLife: '30 days at room temperature',
     shopIds: at('edappally', 'fort-kochi', 'panampilly-nagar', 'palarivattom', 'mg-road'),
   },
   {
@@ -352,6 +419,9 @@ export const products: Product[] = [
     tags: ['christmas', 'crispy', 'teatime'],
     isFeatured: false,
     emoji: '🌸',
+    images: gallery('achappam'),
+    ingredients: ['Rice flour', 'Coconut milk', 'Egg', 'Sugar', 'Sesame seeds', 'Coconut oil'],
+    shelfLife: '30 days in an airtight container',
     shopIds: at('kakkanad', 'fort-kochi', 'kaloor', 'aluva'),
   },
   {
@@ -369,6 +439,9 @@ export const products: Product[] = [
     tags: ['temple style', 'sweet', 'fresh'],
     isFeatured: false,
     emoji: '🟤',
+    images: gallery('unniyappam'),
+    ingredients: ['Rice flour', 'Jaggery', 'Ripe banana', 'Coconut bits', 'Ghee', 'Cardamom'],
+    shelfLife: '3 days at room temperature',
     shopIds: at('edappally', 'vyttila', 'tripunithura', 'palarivattom'),
   },
   {
@@ -385,6 +458,17 @@ export const products: Product[] = [
     tags: ['crispy', 'teatime', 'savoury'],
     isFeatured: false,
     emoji: '🥖',
+    images: gallery('kuzhalappam'),
+    ingredients: [
+      'Rice flour',
+      'Garlic',
+      'Shallots',
+      'Cumin',
+      'Sesame seeds',
+      'Coconut oil',
+      'Salt',
+    ],
+    shelfLife: '30 days in an airtight container',
     shopIds: at('kakkanad', 'kaloor', 'panampilly-nagar', 'aluva'),
   },
   {
@@ -402,6 +486,9 @@ export const products: Product[] = [
     tags: ['jackfruit', 'jaggery', 'sweet'],
     isFeatured: false,
     emoji: '🍈',
+    images: gallery('chakka-varatti'),
+    ingredients: ['Ripe jackfruit', 'Jaggery', 'Ghee', 'Cardamom'],
+    shelfLife: '3 months refrigerated',
     shopIds: at('edappally', 'fort-kochi', 'tripunithura', 'mg-road'),
   },
   {
@@ -419,6 +506,9 @@ export const products: Product[] = [
     tags: ['bakery', 'savoury', 'fresh'],
     isFeatured: false,
     emoji: '🥐',
+    images: gallery('egg-puffs'),
+    ingredients: ['Maida', 'Butter', 'Boiled egg', 'Onion', 'Ginger', 'Green chilli', 'Spices'],
+    shelfLife: 'Best eaten the same day',
     shopIds: at('kakkanad', 'vyttila', 'kaloor', 'palarivattom', 'mg-road'),
   },
 
@@ -438,6 +528,9 @@ export const products: Product[] = [
     tags: ['fish', 'backwater', 'pollichathu'],
     isFeatured: true,
     emoji: '🐟',
+    images: gallery('karimeen-pearl-spot'),
+    ingredients: ['Pearl spot fish, cleaned and scored'],
+    shelfLife: '1 day refrigerated; 1 month frozen',
     shopIds: at('fort-kochi', 'vyttila', 'panampilly-nagar', 'tripunithura'),
   },
   {
@@ -455,6 +548,9 @@ export const products: Product[] = [
     tags: ['fish', 'fry', 'curry'],
     isFeatured: false,
     emoji: '🐠',
+    images: gallery('ayala-mackerel'),
+    ingredients: ['Indian mackerel, whole'],
+    shelfLife: '1 day refrigerated; 1 month frozen',
     shopIds: at('fort-kochi', 'vyttila', 'kaloor', 'aluva', 'palarivattom'),
   },
   {
@@ -472,6 +568,9 @@ export const products: Product[] = [
     tags: ['fish', 'fry', 'everyday'],
     isFeatured: false,
     emoji: '🐟',
+    images: gallery('mathi-sardine'),
+    ingredients: ['Oil sardines, whole'],
+    shelfLife: '1 day refrigerated; 1 month frozen',
     shopIds: at('edappally', 'fort-kochi', 'vyttila', 'kaloor', 'aluva', 'tripunithura'),
   },
   {
@@ -488,6 +587,9 @@ export const products: Product[] = [
     tags: ['prawns', 'shellfish', 'roast'],
     isFeatured: true,
     emoji: '🦐',
+    images: gallery('prawns'),
+    ingredients: ['White prawns, peeled and deveined'],
+    shelfLife: '1 day refrigerated; 2 months frozen',
     shopIds: at('fort-kochi', 'vyttila', 'panampilly-nagar', 'mg-road'),
   },
   {
@@ -504,6 +606,9 @@ export const products: Product[] = [
     tags: ['squid', 'kanava', 'roast'],
     isFeatured: false,
     emoji: '🦑',
+    images: gallery('squid'),
+    ingredients: ['Squid rings, cleaned'],
+    shelfLife: '1 day refrigerated; 2 months frozen',
     shopIds: at('fort-kochi', 'vyttila', 'mg-road'),
   },
   {
@@ -521,6 +626,9 @@ export const products: Product[] = [
     tags: ['chicken', 'curry cut'],
     isFeatured: false,
     emoji: '🍗',
+    images: gallery('chicken-curry-cut'),
+    ingredients: ['Skinless chicken, bone-in curry cut'],
+    shelfLife: '2 days refrigerated; 3 months frozen',
     shopIds: at('edappally', 'kakkanad', 'kaloor', 'aluva', 'tripunithura', 'palarivattom'),
   },
   {
@@ -537,6 +645,9 @@ export const products: Product[] = [
     tags: ['mutton', 'goat', 'curry cut'],
     isFeatured: false,
     emoji: '🍖',
+    images: gallery('mutton-curry-cut'),
+    ingredients: ['Goat meat, bone-in curry cut'],
+    shelfLife: '2 days refrigerated; 3 months frozen',
     shopIds: at('edappally', 'kakkanad', 'palarivattom'),
   },
 
@@ -556,6 +667,9 @@ export const products: Product[] = [
     tags: ['rice', 'staple', 'red rice'],
     isFeatured: true,
     emoji: '🍚',
+    images: gallery('kerala-matta-rice'),
+    ingredients: ['Parboiled Palakkadan matta rice'],
+    shelfLife: '12 months in a cool, dry place',
     shopIds: ALL_SHOPS,
   },
   {
@@ -573,6 +687,9 @@ export const products: Product[] = [
     tags: ['puttu', 'rice flour', 'breakfast'],
     isFeatured: false,
     emoji: '🥣',
+    images: gallery('puttu-podi'),
+    ingredients: ['Roasted red rice flour'],
+    shelfLife: '6 months; keep dry',
     shopIds: at('edappally', 'kakkanad', 'vyttila', 'kaloor', 'aluva', 'tripunithura', 'mg-road'),
   },
   {
@@ -590,6 +707,9 @@ export const products: Product[] = [
     tags: ['appam', 'batter', 'fresh'],
     isFeatured: false,
     emoji: '🥞',
+    images: gallery('appam-batter'),
+    ingredients: ['Raw rice', 'Coconut', 'Cooked rice', 'Sugar', 'Yeast', 'Salt'],
+    shelfLife: '2 days refrigerated',
     shopIds: at('edappally', 'vyttila', 'panampilly-nagar', 'palarivattom'),
   },
   {
@@ -607,6 +727,9 @@ export const products: Product[] = [
     tags: ['idiyappam', 'rice flour', 'breakfast'],
     isFeatured: false,
     emoji: '🍜',
+    images: gallery('idiyappam-podi'),
+    ingredients: ['Steamed rice flour'],
+    shelfLife: '6 months; keep dry',
     shopIds: at('kakkanad', 'fort-kochi', 'kaloor', 'aluva', 'mg-road'),
   },
   {
@@ -623,6 +746,9 @@ export const products: Product[] = [
     tags: ['coconut', 'fresh', 'thoran'],
     isFeatured: false,
     emoji: '🥥',
+    images: gallery('fresh-grated-coconut'),
+    ingredients: ['Freshly grated coconut'],
+    shelfLife: '2 days refrigerated',
     shopIds: at('edappally', 'vyttila', 'kaloor', 'tripunithura', 'palarivattom'),
   },
   {
@@ -640,6 +766,9 @@ export const products: Product[] = [
     tags: ['coconut oil', 'cold pressed', 'cooking'],
     isFeatured: true,
     emoji: '🫙',
+    images: gallery('virgin-coconut-oil'),
+    ingredients: ['Cold-pressed virgin coconut oil'],
+    shelfLife: '12 months away from sunlight',
     shopIds: ALL_SHOPS,
   },
   {
@@ -657,6 +786,9 @@ export const products: Product[] = [
     tags: ['ghee', 'dairy', 'payasam'],
     isFeatured: false,
     emoji: '🧈',
+    images: gallery('cow-ghee'),
+    ingredients: ['Cultured cow milk cream'],
+    shelfLife: '9 months at room temperature',
     shopIds: at('edappally', 'kakkanad', 'panampilly-nagar', 'tripunithura', 'mg-road'),
   },
   {
@@ -674,6 +806,9 @@ export const products: Product[] = [
     tags: ['coconut', 'fresh', 'stew'],
     isFeatured: false,
     emoji: '🥛',
+    images: gallery('fresh-coconut-milk'),
+    ingredients: ['Coconut', 'Water'],
+    shelfLife: '1 day refrigerated',
     shopIds: at('vyttila', 'panampilly-nagar', 'palarivattom', 'mg-road'),
   },
 ]
